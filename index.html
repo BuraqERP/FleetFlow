@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FleetFlow Pro: Cloud Edition</title>
-    <!-- Firebase SDK Scripts -->
+    <title>FleetFlow Pro: Enterprise Cloud Edition</title>
+    <!-- Firebase App & Firestore SDK Scripts (Compat Mode for Single-File HTML) -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <style>
@@ -215,7 +215,7 @@
 
         <section id="reports-view" class="view-section">
             <h2>Financial Overview</h2>
-            <p style="color:var(--text-muted); margin-top:0.5rem;">Synced live with Firestore cloud storage.</p>
+            <p style="color:var(--text-muted); margin-top:0.5rem;">Synced live with Firestore cloud storage (`buraq-rental-fleet`).</p>
         </section>
 
         <section id="payments-view" class="view-section">
@@ -260,14 +260,16 @@
     </div>
 
     <script>
-        // TODO: REPLACE THESE CREDENTIALS WITH YOUR FIREBASE PROJECT CONFIG
+        // Your Firebase Configuration from buraq-rental-fleet
         const firebaseConfig = {
-            apiKey: "YOUR_FIREBASE_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyD92bCUj2WnET6ixkCYROzo_QU-W0KX8JU",
+            authDomain: "buraq-rental-fleet.firebaseapp.com",
+            databaseURL: "https://buraq-rental-fleet-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "buraq-rental-fleet",
+            storageBucket: "buraq-rental-fleet.firebasestorage.app",
+            messagingSenderId: "1071513917747",
+            appId: "1:1071513917747:web:3123c0322682e7643a8646",
+            measurementId: "G-ZFKL7Q90YW"
         };
 
         // Initialize Firebase
@@ -307,7 +309,7 @@
                 renderDashboard();
             } catch (error) {
                 console.error("Firestore loading error: ", error);
-                document.getElementById("sync-banner").innerHTML = "⚠️ Cloud Sync Error (Check Config)";
+                document.getElementById("sync-banner").innerHTML = "⚠️ Cloud Sync Error (Check Firestore Rules)";
                 document.getElementById("sync-banner").style.borderColor = "#f87171";
                 document.getElementById("sync-banner").style.color = "#f87171";
             }
@@ -329,7 +331,7 @@
                 document.getElementById("sync-banner").innerHTML = "☁️ Synced with Firebase Cloud";
             } catch (error) {
                 console.error("Firestore writing error: ", error);
-                document.getElementById("sync-banner").innerHTML = "⚠️ Save Failed";
+                document.getElementById("sync-banner").innerHTML = "⚠️ Save Failed (Check Firestore Rules)";
             }
         }
 
