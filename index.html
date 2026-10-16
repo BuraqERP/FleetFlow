@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FleetFlow Pro: Enterprise Edition - Unified</title>
-    
-    <!-- Firebase SDK Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <!-- Firebase Realtime Database -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <style>
         :root {
             --bg-primary: #0f172a;
@@ -259,7 +258,6 @@
         .sig-box { width: 45%; }
         .sig-underline { border-bottom: 1px solid #000; margin-top: 30px; margin-bottom: 4px; }
 
-
         /* NEON UI / LIGHT-DARK LAYOUT OPTIONS */
         :root {
             --neon-cyan: #22d3ee;
@@ -330,7 +328,6 @@
             margin-bottom: 1.25rem;
         }
 
-        /* PAYMENT LEDGER DASHBOARD POLISH ONLY */
         #payments-view .payment-summary-grid {
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1rem;
@@ -422,7 +419,6 @@
             gap: 1rem;
         }
 
-        /* PAYMENT LEDGER RESPONSIVE TABLE FIX ONLY */
         #payments-view .table-container {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
@@ -454,28 +450,6 @@
         #payments-view .payments-filter-actions .btn {
             white-space: nowrap;
         }
-        @media (max-width: 980px) {
-            #payments-view .payment-summary-grid {
-                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-            }
-            #payments-view .payment-kpi-card {
-                min-height: 112px;
-                padding: 0.95rem;
-            }
-            #payments-view .payment-kpi-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-        }
-        @media (max-width: 640px) {
-            #payments-view .payments-filter-actions {
-                flex-direction: column;
-            }
-            #payments-view .payments-filter-actions .btn {
-                width: 100%;
-            }
-        }
 
         .theme-toggle-card {
             display: grid;
@@ -501,7 +475,6 @@
             box-shadow: var(--neon-glow);
         }
 
-        /* LIGHT MODE VISIBILITY FIXES */
         body.light-mode aside {
             background: linear-gradient(180deg, #ffffff, #e0f2fe);
             border-right-color: #93c5fd;
@@ -531,7 +504,6 @@
         body.light-mode .badge-license { color: #854d0e; background: rgba(250, 204, 21, 0.28); }
         body.light-mode code { color: #0f172a; }
 
-        /* PAYMENTS FILTERS + CONTENT REPORT STYLE */
         .payments-filter-panel {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -563,7 +535,6 @@
         .content-report-table th { width: 42%; }
         .content-report-table td { font-weight: 700; }
 
-        /* ENHANCED REPORT DASHBOARD ONLY */
         body.light-mode header {
             background: linear-gradient(180deg, rgba(238, 246, 255, 0.98), rgba(238, 246, 255, 0.86));
             color: #0f172a;
@@ -656,70 +627,7 @@
         .ff-line-legend { display: flex; gap: 1rem; flex-wrap: wrap; color: var(--text-muted); font-size: 0.85rem; margin-top: 0.5rem; }
         body.light-mode .ff-pie { box-shadow: inset 0 0 0 14px rgba(255,255,255,0.7); }
         body.light-mode .ff-hbar-track { background: rgba(226,232,240,0.8); }
-        @media (max-width: 560px) { .ff-pie-layout { grid-template-columns: 1fr; justify-items: center; } .ff-hbar-row { grid-template-columns: 1fr; gap: 0.3rem; } }
 
-        @media (max-width: 860px) { .report-dashboard-header, .report-section-title { flex-direction: column; align-items: flex-start; } .report-content-grid { grid-template-columns: 1fr; } }
-
-        .report-metric-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        .mini-metric {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 0.75rem;
-            padding: 1rem;
-            box-shadow: var(--soft-glow);
-        }
-        .mini-metric .label { color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; margin-bottom: 0.35rem; }
-        .mini-metric .value { font-weight: 800; font-size: 1.2rem; }
-
-        @media print {
-            @page { size: A4 portrait; margin: 8mm; }
-            html, body { width: 210mm; min-height: 297mm; background: #fff !important; }
-            body * { visibility: hidden !important; }
-            #contractModal, #contractModal *, #contract-print-area, #contract-print-area * { visibility: visible !important; }
-            #contractModal { position: static !important; background: transparent !important; display: block !important; opacity: 1 !important; }
-            #contractModal .modal-content { box-shadow: none !important; border: none !important; padding: 0 !important; max-width: none !important; width: 100% !important; background: #fff !important; }
-            #contractModal .modal-header, #contractModal .form-actions { display: none !important; }
-            #contract-scroll-wrapper { max-height: none !important; overflow: visible !important; padding: 0 !important; background: #fff !important; }
-            #contract-print-area {
-                position: static !important;
-                width: 100% !important;
-                padding: 0 !important;
-                color: #000 !important;
-                background: #fff !important;
-                font-size: 9px !important;
-                line-height: 1.22 !important;
-                transform-origin: top left;
-            }
-            #contract-print-area h1 { font-size: 15px !important; margin-bottom: 1px !important; }
-            #contract-print-area h2 { font-size: 10px !important; margin-bottom: 8px !important; padding-bottom: 3px !important; }
-            #contract-print-area h3 { font-size: 9px !important; margin-top: 7px !important; margin-bottom: 4px !important; padding: 3px 5px !important; }
-            .doc-grid { gap: 4px !important; margin-bottom: 5px !important; }
-            .doc-cell { padding: 3px !important; border: 1px solid #000 !important; }
-            .cell-lbl { font-size: 7px !important; }
-            .cell-val { font-size: 9px !important; }
-            .legal-text { margin-bottom: 3px !important; }
-            .sig-container { margin-top: 12px !important; }
-            .sig-underline { margin-top: 18px !important; }
-        }
-
-        @media (max-width: 760px) {
-            .payment-week-grid { grid-template-columns: 1fr; }
-        }
-
-        @media print {
-            body * { visibility: hidden; }
-            #contract-print-area, #contract-print-area * { visibility: visible; }
-            #contract-print-area { position: absolute; left: 0; top: 0; width: 100%; padding: 0; color: #000; background: #fff; }
-            .doc-cell { border: 1px solid #000 !important; }
-            #contract-scroll-wrapper { max-height: none; overflow: visible; background: transparent; padding: 0; }
-        }
-
-        /* UI/UX POLISH — visual-only enhancements, app logic unchanged */
         :root {
             --bg-primary: #08111f;
             --bg-secondary: rgba(30, 41, 59, 0.92);
@@ -924,60 +832,6 @@
         ::-webkit-scrollbar-thumb { background: #475569; border-radius: 999px; }
         ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 
-        @media (max-width: 980px) {
-            body { display: block; }
-            aside {
-                position: sticky;
-                top: 0;
-                width: 100%;
-                height: auto;
-                z-index: 40;
-                padding: 1rem;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-            }
-            .brand-logo { margin-bottom: 0.75rem; }
-            .nav-menu {
-                flex-direction: row;
-                gap: 0.5rem;
-                overflow-x: auto;
-                padding-bottom: 0.35rem;
-            }
-            .nav-item {
-                white-space: nowrap;
-                min-height: 2.35rem;
-                padding: 0.55rem 0.8rem;
-            }
-            .nav-item.active { border-left: none; border-bottom: 3px solid var(--accent-blue); }
-            .nav-divider { display: none; }
-            main { padding: 1rem; }
-            header { top: 5.95rem; }
-            .filter-bar { top: 10.6rem; }
-        }
-
-        @media (max-width: 640px) {
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.85rem;
-            }
-            #header-action, #header-action .btn { width: 100%; }
-            .btn { justify-content: center; }
-            .stats-grid { grid-template-columns: 1fr; gap: 1rem; }
-            .modal-content {
-                width: calc(100% - 1rem);
-                max-height: 94vh;
-                padding: 1.25rem;
-            }
-            .form-actions {
-                flex-direction: column-reverse;
-            }
-            .form-actions .btn { width: 100%; }
-            .doc-grid, .summary-grid { grid-template-columns: 1fr !important; }
-            .doc-cell.span-2, .doc-cell.span-4, .summary-section { grid-column: auto; }
-        }
-
-        /* PAYMENT LEDGER COMPACT RECONCILE TOGGLE */
         .reconcile-toggle {
             display: inline-flex;
             align-items: center;
@@ -1026,14 +880,12 @@
             transform: translateX(20px);
         }
 
-        /* RELEASE / DEPOSIT RETURN MODAL */
         .release-check-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.9rem; margin: 1rem 0; }
         .release-check-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0.65rem; padding: 0.85rem; }
         .release-check-card label { display: flex; align-items: center; gap: 0.55rem; font-weight: 600; cursor: pointer; }
         .release-summary-box { background: rgba(74,222,128,0.10); border: 1px solid rgba(74,222,128,0.28); border-radius: 0.65rem; padding: 0.85rem; margin-bottom: 1rem; }
         .amount-negative { color: var(--accent-danger); font-weight: 800; }
 
-        /* STANDARD SINGLE PAGE AGREEMENT PRINT FORMAT */
         #contract-print-area { width: 190mm; min-height: auto; margin: 0 auto; }
         #contract-print-area .legal-text { font-size: 10px; line-height: 1.28; }
 
@@ -1063,7 +915,7 @@
 <body>
 
     <aside>
-        <div class="brand-logo">⚡ FleetFlow Cloud</div>
+        <div class="brand-logo">⚡ FleetFlow Pro</div>
         <ul class="nav-menu">
             <li class="nav-item active" onclick="switchView('fleet-view', this)">Fleet Inventory</li>
             <li class="nav-item" onclick="switchView('rentals-view', this)">Active Rentals</li>
@@ -1626,7 +1478,6 @@
                     <label>Insurance Valid Until (Expiry Date)</label>
                     <input type="date" class="form-control" id="v-insurance" required>
                 </div>
-
                 <div class="form-actions">
                     <button type="button" class="btn btn-secondary" onclick="closeModal('vehicleModal')">Cancel Action</button>
                     <button type="submit" class="btn" id="v-submit-btn">Commit Asset</button>
@@ -2001,7 +1852,6 @@
                             <div class="cell-lbl">Vehicle Type</div>
                             <div class="cell-val" id="pdf-v-type">-</div>
                         </div>
-                        
                         <div class="doc-cell span-2">
                             <div class="cell-lbl">Collection Date & Time</div>
                             <div class="cell-val" id="pdf-start-date">-</div>
@@ -2162,21 +2012,48 @@
     </div>
 
     <script>
-        // FIREBASE CLOUD CONFIGURATION
+        // FIREBASE INITIALIZATION & CONFIGURATION
         const firebaseConfig = {
-            apiKey: "AIzaSyD...", // Your project keys
+            apiKey: "AIzaSyD92bCUj2WnET6ixkCYROzo_QU-W0KX8JU",
             authDomain: "buraq-rental-fleet.firebaseapp.com",
+            databaseURL: "https://buraq-rental-fleet-default-rtdb.europe-west1.firebasedatabase.app",
             projectId: "buraq-rental-fleet",
             storageBucket: "buraq-rental-fleet.appspot.com",
-            messagingSenderId: "...",
-            appId: "..."
+            messagingSenderId: "1071513917747",
+            appId: "1:1071513917747:web:3123c0322682e7643a8646",
+            measurementId: "G-ZFKL7Q90YW"
         };
 
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        const db = firebase.database();
 
-        // LOCAL APP DATA ARRAYS
+        // DEFAULT DATA SEEDS (Fallback / Initial Setup)
+        const defaultFleet = [
+            { id: "B-991-WWM", type: "Car", model: "Audi A4 Avant", licenseCategory: "B", rate: 250, status: "Rented", tenant: "Mihai Ionescu", phone: "+40722111222", cnp: "1850123456789", startDate: "2026-05-01", deposit: 600, adminId: 0, lastOil: "2026-04-15", insuranceExpiry: "2026-12-01" },
+            { id: "TM-44-RDR", type: "Motorbike", model: "Kawasaki Ninja 650", licenseCategory: "A", rate: 160, status: "Available", tenant: null, phone: null, cnp: null, startDate: null, deposit: null, adminId: null, lastOil: "2026-03-10", insuranceExpiry: "2026-06-10" }, 
+            { id: "CJ-02-SCT", type: "Scooter", model: "Honda PCX 150cc", licenseCategory: "A1", rate: 90, status: "Rented", tenant: "Elena Radu", phone: "+40733444555", cnp: "2920512345678", startDate: "2026-05-20", deposit: 200, adminId: 0, lastOil: "2026-04-02", insuranceExpiry: "2026-05-25" } 
+        ];
+
+        const defaultAdmins = [
+            { name: "Alex Marcell", role: "Operations Manager", cnp: "1790412334455", email: "alex@fleetflow.ro", phone: "+40711222333", status: "Active" }
+        ];
+
+        const defaultCustomers = [
+            { name: "Mihai Ionescu", cnp: "1850123456789", phone: "+40722111222", totalRentals: 2, totalSpent: 1200 },
+            { name: "Elena Radu", cnp: "2920512345678", phone: "+40733444555", totalRentals: 1, totalSpent: 200 }
+        ];
+
+        const defaultRentalHistory = [
+            { vehicleId: "B-991-WWM", tenant: "Mihai Ionescu", startDate: "2026-05-01", deposit: 600, adminName: "Alex Marcell" },
+            { vehicleId: "B-991-WWM", tenant: "Mihai Ionescu", startDate: "2026-01-15", deposit: 600, adminName: "Alex Marcell" },
+            { vehicleId: "CJ-02-SCT", tenant: "Elena Radu", startDate: "2026-05-20", deposit: 200, adminName: "Alex Marcell" }
+        ];
+
+        const defaultMaintenanceHistory = [
+            { vehicleId: "B-991-WWM", date: "2026-04-15", cost: 120, detail: "Routine Oil & Filter" },
+            { vehicleId: "TM-44-RDR", date: "2026-03-10", cost: 85, detail: "Tire Pressure & Chain Lube" }
+        ];
+
         let fleet = [];
         let admins = [];
         let customers = [];
@@ -2187,52 +2064,56 @@
         let uiLayout = 'dark';
         let paymentQuickFilter = 'all';
 
-        // LOAD DATA FROM FIREBASE CLOUD
-        async function loadDataFromCloud() {
-            try {
-                const docRef = await db.collection("fleetData").doc("mainStore").get();
-                if (docRef.exists) {
-                    const data = docRef.data();
-                    fleet = data.fleet || [];
-                    admins = data.admins || [];
-                    customers = data.customers || [];
-                    rentalHistory = data.rentalHistory || [];
-                    maintenanceHistory = data.maintenanceHistory || [];
-                    payments = data.payments || [];
-                    depositReturnHistory = data.depositReturns || [];
-                    uiLayout = data.uiLayout || 'dark';
-                    console.log("SUCCESS: Loaded data from Firebase Cloud.");
-                } else {
-                    console.log("No cloud document found. Initializing defaults.");
-                }
-            } catch (err) {
-                console.error("Error loading from Firebase:", err);
-            }
-            applyUiLayout();
-            renderDashboard();
-        }
-
-        // SAVE DATA TO FIREBASE CLOUD
-        async function saveData() {
-            const payload = {
+        // SAVE DATA TO FIREBASE REALTIME DATABASE
+        function saveData() {
+            db.ref('fleetFlowData').set({
                 fleet,
                 admins,
                 customers,
                 rentalHistory,
                 maintenanceHistory,
                 payments,
-                depositReturns: depositReturnHistory,
-                uiLayout,
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            };
+                depositReturnHistory,
+                uiLayout
+            }).catch(error => {
+                console.error("Error saving data to Firebase: ", error);
+            });
+        }
 
-            try {
-                await db.collection("fleetData").doc("mainStore").set(payload);
-                console.log("SUCCESS: Data synced to Firebase Cloud.");
-            } catch (err) {
-                console.error("Error saving to Firebase:", err);
-                alert("Cloud Sync Error: " + err.message);
-            }
+        // LOAD DATA FROM FIREBASE ON STARTUP
+        function loadDataAndInitialize() {
+            db.ref('fleetFlowData').once('value').then((snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    fleet = data.fleet || defaultFleet;
+                    admins = data.admins || defaultAdmins;
+                    customers = data.customers || defaultCustomers;
+                    rentalHistory = data.rentalHistory || defaultRentalHistory;
+                    maintenanceHistory = data.maintenanceHistory || defaultMaintenanceHistory;
+                    payments = data.payments || [];
+                    depositReturnHistory = data.depositReturnHistory || [];
+                    uiLayout = data.uiLayout || 'dark';
+                } else {
+                    fleet = defaultFleet;
+                    admins = defaultAdmins;
+                    customers = defaultCustomers;
+                    rentalHistory = defaultRentalHistory;
+                    maintenanceHistory = defaultMaintenanceHistory;
+                    payments = [];
+                    depositReturnHistory = [];
+                    saveData();
+                }
+                applyUiLayout();
+                renderDashboard();
+            }).catch((error) => {
+                console.error("Error loading data from Firebase, falling back to defaults: ", error);
+                fleet = defaultFleet;
+                admins = defaultAdmins;
+                customers = defaultCustomers;
+                rentalHistory = defaultRentalHistory;
+                maintenanceHistory = defaultMaintenanceHistory;
+                renderDashboard();
+            });
         }
 
         let currentCategoryFilter = 'all';
@@ -2501,7 +2382,7 @@
             openModal('vehicleModal');
         }
 
-        async function handleVehicleSubmit(e) {
+        function handleVehicleSubmit(e) {
             e.preventDefault();
             const indexStr = document.getElementById("v-index").value;
             const inputPlate = document.getElementById("v-plate").value.toUpperCase();
@@ -2521,7 +2402,7 @@
                 fleet.push(assetData);
             }
             
-            await saveData();
+            saveData();
             closeModal('vehicleModal'); 
             renderDashboard();
         }
@@ -2552,7 +2433,7 @@
             }
         }
 
-        async function executeVerifiedLeaseRelease() {
+        function executeVerifiedLeaseRelease() {
             const index = parseInt(document.getElementById("safe-target-index").value);
             if(isNaN(index) || !fleet[index]) return;
             const v = fleet[index];
@@ -2601,7 +2482,7 @@
             }
 
             fleet[index].status = "Available"; fleet[index].tenant = null; fleet[index].phone = null; fleet[index].cnp = null; fleet[index].startDate = null; fleet[index].deposit = null; fleet[index].adminId = null;
-            await saveData();
+            saveData();
             closeModal('releaseSafeModal'); 
             renderDashboard();
             if(document.getElementById('payments-view')?.classList.contains('active-view')) renderPaymentsLedger();
@@ -2614,10 +2495,10 @@
             openModal('deleteModal');
         }
 
-        async function executeDeletion() {
+        function executeDeletion() {
             const index = parseInt(document.getElementById("delete-target-index").value);
             if(!isNaN(index)) fleet.splice(index, 1);
-            await saveData();
+            saveData();
             closeModal('deleteModal'); 
             renderDashboard();
         }
@@ -2636,7 +2517,7 @@
             openModal('rentalModal');
         }
 
-        async function handleRentalSubmit(e) {
+        function handleRentalSubmit(e) {
             e.preventDefault();
             const plate = document.getElementById("r-plate").value;
             const idx = fleet.findIndex(v => v.id === plate);
@@ -2661,7 +2542,7 @@
                 }
             }
 
-            await saveData();
+            saveData();
             document.getElementById("rentalForm").reset(); 
             closeModal('rentalModal'); 
             renderDashboard();
@@ -2689,7 +2570,7 @@
             else { commitBtn.disabled = true; commitBtn.style.opacity = "0.5"; commitBtn.style.cursor = "not-allowed"; }
         }
 
-        async function commitMaintenanceReset(e) {
+        function commitMaintenanceReset(e) {
             e.preventDefault();
             const index = parseInt(document.getElementById("m-target-index").value);
             const cost = parseInt(document.getElementById("m-cost").value) || 0;
@@ -2707,7 +2588,7 @@
                 });
             }
             
-            await saveData();
+            saveData();
             closeModal('maintenanceResetModal'); 
             renderDashboard();
             if(document.getElementById('reports-view').classList.contains('active-view')) renderVehicleReport();
@@ -2737,7 +2618,7 @@
             openModal('manualExpenseModal');
         }
 
-        async function handleManualExpenseSubmit(e) {
+        function handleManualExpenseSubmit(e) {
             e.preventDefault();
             const indexRaw = document.getElementById('manual-expense-index').value;
             const vehicleId = document.getElementById('manual-expense-vehicle').value;
@@ -2762,17 +2643,17 @@
             if(indexRaw === '') maintenanceHistory.push(record);
             else maintenanceHistory[parseInt(indexRaw)] = record;
 
-            await saveData();
+            saveData();
             closeModal('manualExpenseModal');
             renderDashboard();
             if(document.getElementById('reports-view').classList.contains('active-view')) renderVehicleReport();
         }
 
-        async function deleteManualExpense(index) {
+        function deleteManualExpense(index) {
             if(index === null || index === undefined || !maintenanceHistory[index]) return;
             if(confirm('Delete this maintenance expense record?')) {
                 maintenanceHistory.splice(index, 1);
-                await saveData();
+                saveData();
                 renderDashboard();
                 if(document.getElementById('reports-view').classList.contains('active-view')) renderVehicleReport();
             }
@@ -2820,19 +2701,19 @@
             openModal('adminModal');
         }
 
-        async function handleAdminSubmit(e) {
+        function handleAdminSubmit(e) {
             e.preventDefault();
             const indexStr = document.getElementById("a-index").value;
             const adminData = { name: document.getElementById("a-name").value, role: document.getElementById("a-role").value, cnp: document.getElementById("a-cnp").value, email: document.getElementById("a-email").value, phone: document.getElementById("a-phone").value, status: document.getElementById("a-status").value };
             if(indexStr !== "") { admins[parseInt(indexStr)] = adminData; } else { admins.push(adminData); }
-            await saveData();
+            saveData();
             closeModal('adminModal'); 
             renderDashboard();
         }
 
-        async function toggleAdminStatus(idx) { 
+        function toggleAdminStatus(idx) { 
             admins[idx].status = admins[idx].status === 'Active' ? 'Inactive' : 'Active'; 
-            await saveData();
+            saveData();
             renderDashboard(); 
         }
 
@@ -2848,7 +2729,7 @@
             openModal('customerModal');
         }
 
-        async function handleCustomerSubmit(e) {
+        function handleCustomerSubmit(e) {
             e.preventDefault();
             const index = parseInt(document.getElementById("c-index").value);
             if(isNaN(index) || !customers[index]) return;
@@ -2867,13 +2748,13 @@
             payments.forEach(p => {
                 if(p.customerCnp === oldCnp) { p.customerCnp = updated.cnp; p.customerName = updated.name; }
             });
-            await saveData();
+            saveData();
             closeModal('customerModal');
             renderDashboard();
             renderPaymentsLedger();
         }
 
-        async function deleteCustomer(index) {
+        function deleteCustomer(index) {
             const c = customers[index]; if(!c) return;
             const hasActiveContract = fleet.some(v => v.status === "Rented" && v.cnp === c.cnp);
             if(hasActiveContract) {
@@ -2882,7 +2763,7 @@
             }
             if(confirm(`Delete customer profile for ${c.name}? This action cannot be undone.`)) {
                 customers.splice(index, 1);
-                await saveData();
+                saveData();
                 renderDashboard();
                 renderPaymentsLedger();
             }
@@ -3051,7 +2932,6 @@
             records.maintenance.filter(m => m.vehicleId === vehicleId).forEach(m => dates.push(m.date));
             return dates.sort((a,b) => toDateValue(b) - toDateValue(a))[0] || '';
         }
-
         function getVehicleReportData(vehicleId, records = getReportFilteredRecords()) {
             const vehicle = fleet.find(v => v.id === vehicleId) || {};
             const rentals = sortByDateDesc(records.rentals.filter(r => r.vehicleId === vehicleId), 'startDate');
@@ -3089,7 +2969,8 @@
                     <td>${entry.startDate || ''}</td>
                     <td>${entry.tenant || ''}</td>
                     <td>${model}</td>
-                    <td>${entry.vehicleId \vert{}\vert{} ''}</td> <td class="text-green">$${entry.deposit || 0}</td>
+                    <td>${entry.vehicleId || ''}</td>
+                    <td class="text-green">$${entry.deposit || 0}</td>
                     <td>${entry.adminName || 'N/A'}</td>
                     <td>
                         <button class="icon-btn icon-edit" title="Edit deposit" onclick="openDepositEditModal(${index})">✎</button>
@@ -3114,7 +2995,7 @@
             openModal('depositEditModal');
         }
 
-        async function handleDepositEditSubmit(e) {
+        function handleDepositEditSubmit(e) {
             e.preventDefault();
             const index = parseInt(document.getElementById('deposit-edit-index').value);
             if(isNaN(index) || !rentalHistory[index]) return;
@@ -3129,20 +3010,20 @@
                 deposit: parseFloat(document.getElementById('deposit-edit-amount').value) || 0,
                 adminName: document.getElementById('deposit-edit-admin').value || 'N/A'
             };
-            await saveData();
+            saveData();
             closeModal('depositEditModal');
             updateGlobalReports();
             renderVehicleReport();
             renderDepositReport();
         }
 
-        async function deleteDepositEntry(index) {
+        function deleteDepositEntry(index) {
             const entry = rentalHistory[index];
             if(!entry) return;
-            const ok = confirm(`Delete this deposit entry?\n\nRenter: ${entry.tenant || 'N/A'}\nDate: ${entry.startDate \vert{}\vert{} 'N/A'}\nAmount:$${entry.deposit || 0}\n\nThis will remove it from the report totals.`);
+            const ok = confirm(`Delete this deposit entry?\n\nRenter: ${entry.tenant || 'N/A'}\nDate: ${entry.startDate || 'N/A'}\nAmount: $${entry.deposit || 0}\n\nThis will remove it from the report totals.`);
             if(!ok) return;
             rentalHistory.splice(index, 1);
-            await saveData();
+            saveData();
             updateGlobalReports();
             renderVehicleReport();
             renderDepositReport();
@@ -3185,10 +3066,13 @@
                 .sort((a, b) => toDateValue(b.lastDate) - toDateValue(a.lastDate));
             body.innerHTML = rows.length ? rows.map(({v, d, lastDate}) => `
                 <tr>
-                    <td><strong>${v.model}</strong><br><small>${v.id} ·${v.type}</small></td>
-                    <td><span class="badge ${v.status === 'Available' ? 'badge-available' : 'badge-rented'}">${v.status}</span></td> <td class="text-green">$${d.deposits}</td>
-                    <td style="color: var(--accent-blue); font-weight:700;">$${d.paymentTotal}</td> <td class="text-danger">$${d.maintTotal}</td>
-                    <td class="text-warning">-$${d.refundTotal}</td> <td style="color: var(--accent-purple); font-weight:800;">$${d.net}</td>
+                    <td><strong>${v.model}</strong><br><small>${v.id} · ${v.type}</small></td>
+                    <td><span class="badge ${v.status === 'Available' ? 'badge-available' : 'badge-rented'}">${v.status}</span></td>
+                    <td class="text-green">$${d.deposits}</td>
+                    <td style="color: var(--accent-blue); font-weight:700;">$${d.paymentTotal}</td>
+                    <td class="text-danger">$${d.maintTotal}</td>
+                    <td class="text-warning">-$${d.refundTotal}</td>
+                    <td style="color: var(--accent-purple); font-weight:800;">$${d.net}</td>
                     <td>${d.rentals.length} rentals / ${d.pays.length} payments / ${d.maint.length} expenses</td>
                     <td>${lastDate || 'No date'}</td>
                 </tr>`).join('') : `<tr><td colspan="9" style="text-align:center; color:var(--text-muted);">No vehicles available.</td></tr>`;
@@ -3208,8 +3092,8 @@
             const nextOil = calculateNextOilDate(vInfo.lastOil);
             const { rentals: vRentals, pays: vPayments, maint: vMaint, deposits: vRev, paymentTotal: vPay, refundTotal: vRefund, maintTotal: vCost, net } = data;
 
-            document.getElementById("rep-v-title").innerText = `${vInfo.id} -${vInfo.model}`;
-            document.getElementById("rep-v-overview").innerHTML = `Status: <strong>${vInfo.status}</strong> \vert{} Type: <strong>${vInfo.type}</strong> | Required License: <strong>Category ${vInfo.licenseCategory \vert{}\vert{} 'B'}</strong> \vert{} Weekly Rate: <strong>$${vInfo.rate}</strong>`;
+            document.getElementById("rep-v-title").innerText = `${vInfo.id} - ${vInfo.model}`;
+            document.getElementById("rep-v-overview").innerHTML = `Status: <strong>${vInfo.status}</strong> | Type: <strong>${vInfo.type}</strong> | Required License: <strong>Category ${vInfo.licenseCategory || 'B'}</strong> | Weekly Rate: <strong>$${vInfo.rate}</strong>`;
             document.getElementById("rep-v-rev").innerText = "$" + vRev;
             document.getElementById("rep-v-payments").innerText = "$" + vPay;
             document.getElementById("rep-v-maint").innerText = "$" + vCost;
@@ -3237,15 +3121,18 @@
                 <tr><th>Next Oil Deadline</th><td>${nextOil || 'Not Set'}</td></tr>`;
             document.getElementById("rep-v-finance-body").innerHTML = `
                 <tr><th>Weekly Base Rate</th><td>$${vInfo.rate || 0}</td></tr>
-                <tr><th>Security Deposit on Current Contract</th><td>$${vInfo.deposit \vert{}\vert{} 0}</td></tr> <tr><th>Total Rental Deposits</th><td class="text-green">+$${vRev}</td></tr>
-                <tr><th>Total Payment Ledger</th><td class="text-green">+$${vPay}</td></tr> <tr><th>Total Maintenance Costs</th><td class="text-danger">-$${vCost}</td></tr>
-                <tr><th>Deposit Refund</th><td class="text-warning">-$${vRefund}</td></tr> <tr><th>Net Position</th><td><strong style="color: var(--accent-purple);">$${net}</strong></td></tr>`;
+                <tr><th>Security Deposit on Current Contract</th><td>$${vInfo.deposit || 0}</td></tr>
+                <tr><th>Total Rental Deposits</th><td class="text-green">+$${vRev}</td></tr>
+                <tr><th>Total Payment Ledger</th><td class="text-green">+$${vPay}</td></tr>
+                <tr><th>Total Maintenance Costs</th><td class="text-danger">-$${vCost}</td></tr>
+                <tr><th>Deposit Refund</th><td class="text-warning">-$${vRefund}</td></tr>
+                <tr><th>Net Position</th><td><strong style="color: var(--accent-purple);">$${net}</strong></td></tr>`;
             document.getElementById("rep-v-rental-body").innerHTML = vRentals.length ? vRentals.map(r => `<tr><td>${r.startDate}</td><td>${r.tenant}</td><td class="text-green">+$${r.deposit}</td><td>${r.adminName || 'N/A'}</td></tr>`).join('') : `<tr><td colspan="4" style="text-align:center; color:var(--text-muted)">No rental history for this vehicle in selected date range.</td></tr>`;
             document.getElementById("rep-v-payment-body").innerHTML = vPayments.length ? vPayments.map(p => `<tr><td>${p.paymentDate}</td><td>${p.customerName}</td><td>${p.weekStart} → ${p.weekEnd}</td><td>${p.mode}</td><td class="${p.mode === 'Deposit Refund' ? 'text-warning' : 'text-green'}">${p.mode === 'Deposit Refund' ? '-$' + Math.abs(moneyValue(p.amount)) : '+$' + moneyValue(p.amount)}</td></tr>`).join('') : `<tr><td colspan="5" style="text-align:center; color:var(--text-muted)">No payment records for this vehicle in selected date range.</td></tr>`;
-            document.getElementById("rep-v-maint-body").innerHTML = vMaint.length ? vMaint.map(m => `<tr><td>${m.date}</td><td>${m.detail \vert{}\vert{} m.type \vert{}\vert{} 'Maintenance'}</td><td class="text-danger">-$${m.cost}</td></tr>`).join('') : `<tr><td colspan="3" style="text-align:center; color:var(--text-muted)">No maintenance data for this vehicle in selected date range.</td></tr>`;
+            document.getElementById("rep-v-maint-body").innerHTML = vMaint.length ? vMaint.map(m => `<tr><td>${m.date}</td><td>${m.detail || m.type || 'Maintenance'}</td><td class="text-danger">-$${m.cost}</td></tr>`).join('') : `<tr><td colspan="3" style="text-align:center; color:var(--text-muted)">No maintenance data for this vehicle in selected date range.</td></tr>`;
             document.getElementById("rep-v-notes").innerHTML = `
                 <p><strong>Financial health:</strong> ${net >= 0 ? 'Positive' : 'Negative'} net position after combining deposits, payment ledger collections, deposit refunds, and maintenance expenses.</p>
-                <p><strong>Utilization:</strong> ${vRentals.length} rental record(s), ${vPayments.length} payment record(s), and${vMaint.length} maintenance expense record(s) match the selected date filter.</p>
+                <p><strong>Utilization:</strong> ${vRentals.length} rental record(s), ${vPayments.length} payment record(s), and ${vMaint.length} maintenance expense record(s) match the selected date filter.</p>
                 <p><strong>Sorting:</strong> All report records are sorted newest date first.</p>`;
         }
 
@@ -3255,16 +3142,16 @@
             let title = "Report Breakdown", rows = [];
             if(type === 'deposits' || type === 'vehicleDeposits') {
                 title = type === 'vehicleDeposits' ? 'Vehicle Rental Deposit Breakdown' : 'Total Rental Deposit Breakdown';
-                rows = records.rentals.filter(r => type !== 'vehicleDeposits' || r.vehicleId === selectedVehicle).map(r => ({ main: `${r.tenant \vert{}\vert{} 'Tenant'} ·$${r.deposit || 0}`, sub: `${r.vehicleModel \vert{}\vert{} r.vehicleId} ·${r.startDate} · Handled by ${r.adminName || 'N/A'}` }));
+                rows = records.rentals.filter(r => type !== 'vehicleDeposits' || r.vehicleId === selectedVehicle).map(r => ({ main: `${r.tenant || 'Tenant'} · $${r.deposit || 0}`, sub: `${r.vehicleModel || r.vehicleId} · ${r.startDate} · Handled by ${r.adminName || 'N/A'}` }));
             } else if(type === 'payments' || type === 'vehiclePayments') {
                 title = type === 'vehiclePayments' ? 'Vehicle Payment Ledger Breakdown' : 'Payment Ledger Revenue Breakdown';
-                rows = records.payments.filter(p => type !== 'vehiclePayments' || p.vehicleId === selectedVehicle).map(p => ({ main: `${p.customerName \vert{}\vert{} 'Customer'} ·$${p.amount || 0}`, sub: `${p.vehicleModel || p.vehicleId} · ${p.paymentDate} ·${p.mode} · Week ${p.weekStart \vert{}\vert{} ''} →${p.weekEnd || ''}` }));
+                rows = records.payments.filter(p => type !== 'vehiclePayments' || p.vehicleId === selectedVehicle).map(p => ({ main: `${p.customerName || 'Customer'} · $${p.amount || 0}`, sub: `${p.vehicleModel || p.vehicleId} · ${p.paymentDate} · ${p.mode} · Week ${p.weekStart || ''} → ${p.weekEnd || ''}` }));
             } else if(type === 'maintenance' || type === 'vehicleMaintenance') {
                 title = type === 'vehicleMaintenance' ? 'Vehicle Maintenance Cost Breakdown' : 'Maintenance Cost Breakdown';
-                rows = records.maintenance.filter(m => type !== 'vehicleMaintenance' || m.vehicleId === selectedVehicle).map(m => ({ main: `${m.vehicleModel \vert{}\vert{} m.vehicleId} ·$${m.cost || 0}`, sub: `${m.date} · ${m.type \vert{}\vert{} 'Maintenance'} ·${m.detail || ''}` }));
+                rows = records.maintenance.filter(m => type !== 'vehicleMaintenance' || m.vehicleId === selectedVehicle).map(m => ({ main: `${m.vehicleModel || m.vehicleId} · $${m.cost || 0}`, sub: `${m.date} · ${m.type || 'Maintenance'} · ${m.detail || ''}` }));
             } else if(type === 'refunds') {
                 title = 'Deposit Refund Breakdown';
-                rows = records.payments.filter(p => p.mode === 'Deposit Refund').map(p => ({ main: `${p.customerName \vert{}\vert{} 'Customer'} · -$${Math.abs(moneyValue(p.amount))}`, sub: `${p.vehicleModel \vert{}\vert{} p.vehicleId} ·${p.paymentDate} · Deposit refunded on release` }));
+                rows = records.payments.filter(p => p.mode === 'Deposit Refund').map(p => ({ main: `${p.customerName || 'Customer'} · -$${Math.abs(moneyValue(p.amount))}`, sub: `${p.vehicleModel || p.vehicleId} · ${p.paymentDate} · Deposit refunded on release` }));
             } else if(type === 'profit') {
                 title = 'Net Fleet Profit Breakdown';
                 const totalRev = records.rentals.reduce((sum, item) => sum + moneyValue(item.deposit), 0);
@@ -3295,12 +3182,12 @@
                 const d = getVehicleReportData(v.id, records);
                 return `<tr><td>${v.id}</td><td>${v.model}</td><td>${v.status}</td><td>${d.deposits}</td><td>${d.paymentTotal}</td><td>${d.maintTotal}</td><td>${d.refundTotal}</td><td>${d.net}</td><td>${d.rentals.length}</td><td>${d.pays.length}</td><td>${d.maint.length}</td><td>${vehicleActivityDate(v.id, records)}</td></tr>`;
             }).join('');
-            const rentalsRows = records.rentals.map(r => `<tr><td>${r.startDate}</td><td>${r.vehicleId}</td><td>${r.vehicleModel \vert{}\vert{} ''}</td><td>${r.tenant || ''}</td><td>${r.deposit \vert{}\vert{} 0}</td><td>${r.adminName || ''}</td></tr>`).join('');
-            const paymentRows = records.payments.map(p => `<tr><td>${p.paymentDate}</td><td>${p.vehicleId}</td><td>${p.vehicleModel \vert{}\vert{} ''}</td><td>${p.customerName || ''}</td><td>${p.mode \vert{}\vert{} ''}</td><td>${p.amount || 0}</td></tr>`).join('');
-            const maintRows = records.maintenance.map(m => `<tr><td>${m.date}</td><td>${m.vehicleId}</td><td>${m.vehicleModel \vert{}\vert{} ''}</td><td>${m.type || ''}</td><td>${m.detail \vert{}\vert{} ''}</td><td>${m.cost || 0}</td></tr>`).join('');
+            const rentalsRows = records.rentals.map(r => `<tr><td>${r.startDate}</td><td>${r.vehicleId}</td><td>${r.vehicleModel || ''}</td><td>${r.tenant || ''}</td><td>${r.deposit || 0}</td><td>${r.adminName || ''}</td></tr>`).join('');
+            const paymentRows = records.payments.map(p => `<tr><td>${p.paymentDate}</td><td>${p.vehicleId}</td><td>${p.vehicleModel || ''}</td><td>${p.customerName || ''}</td><td>${p.mode || ''}</td><td>${p.amount || 0}</td></tr>`).join('');
+            const maintRows = records.maintenance.map(m => `<tr><td>${m.date}</td><td>${m.vehicleId}</td><td>${m.vehicleModel || ''}</td><td>${m.type || ''}</td><td>${m.detail || ''}</td><td>${m.cost || 0}</td></tr>`).join('');
             const html = `<html><head><meta charset="UTF-8"></head><body>
                 <h2>FleetFlow Pro Advanced Report</h2>
-                <p>Date filter: ${document.getElementById('report-start-date')?.value \vert{}\vert{} 'All'} to${document.getElementById('report-end-date')?.value || 'All'}</p>
+                <p>Date filter: ${document.getElementById('report-start-date')?.value || 'All'} to ${document.getElementById('report-end-date')?.value || 'All'}</p>
                 <h3>Global Financial Summary</h3><table border="1"><tr><th>Total Rental Deposits</th><td>${totalRev}</td></tr><tr><th>Payment Ledger Revenue</th><td>${totalPayments}</td></tr><tr><th>Total Maintenance Costs</th><td>${totalCost}</td></tr><tr><th>Deposit Refund</th><td>${totalRefunds}</td></tr><tr><th>Global Net Fleet Profit</th><td>${totalRev + totalPayments - totalRefunds - totalCost}</td></tr></table>
                 <h3>Vehicle Performance Overview</h3><table border="1"><tr><th>Plate</th><th>Model</th><th>Status</th><th>Deposits</th><th>Payments</th><th>Maintenance</th><th>Deposit Refund</th><th>Net</th><th>Rental Records</th><th>Payment Records</th><th>Maintenance Records</th><th>Last Date</th></tr>${vehicleRows}</table>
                 <h3>Rental History</h3><table border="1"><tr><th>Date</th><th>Vehicle Plate</th><th>Vehicle Model</th><th>Tenant</th><th>Deposit</th><th>Handled By</th></tr>${rentalsRows}</table>
@@ -3349,7 +3236,7 @@
 
             const vehicleList = fleet;
             vehicleSelect.innerHTML = `<option value="">No Scooter / Miscellaneous Adjustment</option>` + (vehicleList.length
-                ? vehicleList.map(v => `<option value="${v.id}">${v.model} (${v.id}) -${v.type}</option>`).join('')
+                ? vehicleList.map(v => `<option value="${v.id}">${v.model} (${v.id}) - ${v.type}</option>`).join('')
                 : ``);
 
             if(selectedCustomer) customerSelect.value = selectedCustomer;
@@ -3432,7 +3319,7 @@
             if(wrap) wrap.style.display = mode === "Miscellaneous" ? "block" : "none";
         }
 
-        async function handlePaymentSubmit(e) {
+        function handlePaymentSubmit(e) {
             e.preventDefault();
             const indexStr = document.getElementById("p-index").value;
             const customerCnp = document.getElementById("p-customer").value;
@@ -3465,17 +3352,17 @@
 
             if(indexStr !== "") payments[parseInt(indexStr)] = paymentData;
             else payments.push(paymentData);
-            await saveData();
+            saveData();
             closeModal('paymentModal');
             renderPaymentsLedger();
             updateGlobalReports();
             if(document.getElementById('reports-view').classList.contains('active-view')) renderVehicleReport();
         }
 
-        async function deletePayment(index) {
+        function deletePayment(index) {
             if(confirm("Delete this payment record permanently?")) {
                 payments.splice(index, 1);
-                await saveData();
+                saveData();
                 renderPaymentsLedger();
                 updateGlobalReports();
                 if(document.getElementById('reports-view').classList.contains('active-view')) renderVehicleReport();
@@ -3604,11 +3491,11 @@
             URL.revokeObjectURL(url);
         }
 
-        async function setPaymentReconcileStatus(index, isReconciled) {
+        function setPaymentReconcileStatus(index, isReconciled) {
             if(!payments[index]) return;
             payments[index].reconciled = !!isReconciled;
             payments[index].reconciledAt = payments[index].reconciled ? new Date().toISOString().split('T')[0] : '';
-            await saveData();
+            saveData();
             renderPaymentsLedger();
         }
 
@@ -3633,6 +3520,9 @@
             document.getElementById("pay-unreconciled").innerText = "$" + unreconciledAmount;
             document.getElementById("pay-unreconciled-count").innerText = unreconciledPayments.length + (unreconciledPayments.length === 1 ? " entry" : " entries");
             updatePaymentKpiActiveState();
+
+            const selectAll = document.getElementById('pay-select-all');
+            if(selectAll) selectAll.checked = false;
 
             if(payments.length === 0) {
                 body.innerHTML = `<tr><td colspan="10" style="text-align:center; color:var(--text-muted); padding: 1.5rem;">No payment records yet. Use “Add Payment” to create the first scooter payment entry.</td></tr>`;
@@ -3671,10 +3561,10 @@
             `).join('');
         }
 
-        async function setUiLayout(mode) {
+        function setUiLayout(mode) {
             uiLayout = mode === 'light' ? 'light' : 'dark';
             applyUiLayout();
-            await saveData();
+            saveData();
         }
 
         function applyUiLayout() {
@@ -3698,7 +3588,6 @@
 
             openModal('contractModal');
         }
-
         function triggerSystemPrint() {
             document.title = 'Rental Agreement - FleetFlow Pro';
             setTimeout(() => window.print(), 150);
@@ -3736,9 +3625,8 @@
             element.classList.add('active'); currentCategoryFilter = type; renderDashboard();
         }
 
-        // Initialize application by loading from Firebase Cloud on startup
         window.onload = function() {
-            loadDataFromCloud();
+            loadDataAndInitialize();
         };
     </script>
 </body>
